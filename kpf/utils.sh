@@ -14,6 +14,8 @@ logger () {
 		$LOGFILE=stdout
 	fi
 
+	echo `date`: $MSG
+	eips $MSG
 	echo `date`: $MSG >> $LOGFILE
 }
 
@@ -55,11 +57,11 @@ wait_for () {
 			then
 				# in screensaver mode
 				logger "go to sleep for $REMAININGWAITTIME seconds, wlan off"
-				lipc-set-prop com.lab126.cmd wirelessEnable 0
-				/mnt/us/kindle-picture-frame/rtcwake -d rtc$RTC -s $REMAININGWAITTIME -m mem
+				# lipc-set-prop com.lab126.cmd wirelessEnable 0
+				/mnt/us/kpf/rtcwake -d rtc$RTC -s $REMAININGWAITTIME -m mem
 				logger "woke up again"
 				logger "Finished waiting, switch wireless back on"
-				lipc-set-prop com.lab126.cmd wirelessEnable 1
+				# lipc-set-prop com.lab126.cmd wirelessEnable 1
 			else
 				# not in screensaver mode - don't really sleep with rtcwake
 				sleep $REMAININGWAITTIME

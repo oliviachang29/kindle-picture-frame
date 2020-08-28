@@ -5,12 +5,12 @@ cd "$(dirname "$0")"
 
 # load configuration
 if [ -e "config.sh" ]; then
-	source /mnt/us/kindle-picture-frame/config.sh
+	source /mnt/us/kpf/config.sh
 fi
 
 # load utils
 if [ -e "utils.sh" ]; then
-	source /mnt/us/kindle-picture-frame/utils.sh
+	source /mnt/us/kpf/utils.sh
 else
 	echo "Could not find utils.sh in `pwd`"
 	exit
@@ -34,6 +34,6 @@ else
 	fi
 	
 	sleep 5
-	/bin/sh /mnt/base-us/kindle-picture-frame/scheduler.sh &
-	touch /mnt/us/kindle-picture-frame/enabled
+	/bin/sh /mnt/base-us/kpf/scheduler.sh &
+	touch /mnt/us/kpf/enabled
 fi

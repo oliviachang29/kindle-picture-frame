@@ -36,7 +36,7 @@ LOGGING=1
 
 # Where to log to - either /dev/stderr for console output, or an absolute
 # file path (beware that this may grow large over time!)
-LOGFILE=/mnt/us/kindle-picture-frame/logger.log
+LOGFILE=/mnt/us/kpf/logger.log
 #LOGFILE=/tmp/onlinescreensaver.log
 
 # whether to disable WiFi after the script has finished (if WiFi was off

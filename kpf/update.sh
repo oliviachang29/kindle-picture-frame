@@ -9,12 +9,12 @@ cd "$(dirname "$0")"
 
 # load configuration
 if [ -e "config.sh" ]; then
-	source /mnt/us/kindle-picture-frame/config.sh
+	source /mnt/us/kpf/config.sh
 fi
 
 # enable wireless if it is currently off
 if [ 0 -eq `lipc-get-prop com.lab126.cmd wirelessEnable` ]; then
-	echo "WiFi is off, turning it on now"
+	logger "WiFi is off, turning it on now"
 	lipc-set-prop com.lab126.cmd wirelessEnable 1
 	DISABLE_WIFI=1
 fi
@@ -30,7 +30,7 @@ while [ 0 -eq $CONNECTED ]; do
 	if [ 0 -eq $CONNECTED ]; then
 		TIMER=$(($TIMER-1))
 		if [ 0 -eq $TIMER ]; then
-			echo "No internet connection after ${NETWORK_TIMEOUT} seconds, aborting."
+			logger "No internet connection after ${NETWORK_TIMEOUT} seconds, aborting."
 			break
 		else
 			sleep 1
@@ -39,13 +39,17 @@ while [ 0 -eq $CONNECTED ]; do
 done
 
 if [ 1 -eq $CONNECTED ]; then
-	python3 /mnt/us/kindle-picture-frame/getImage.py
-  /mnt/us/kindle-picture-frame/writeImage.sh
-  echo "Updated screen saver"
+	if [ "$1" = true ]; then
+		python3 /mnt/us/kpf/getUnsplash.py
+	else
+		python3 /mnt/us/kpf/getImage.py
+	fi
+  /mnt/us/kpf/writeImage.sh
+  logger "Updated picutre"
 fi
 
 # disable wireless if necessary
 if [ 1 -eq $DISABLE_WIFI ]; then
-	echo "Disabling WiFi"
+	logger "Disabling WiFi"
 	# lipc-set-prop com.lab126.cmd wirelessEnable 0
 fi

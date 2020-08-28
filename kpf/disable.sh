@@ -5,12 +5,12 @@ cd "$(dirname "$0")"
 
 # load configuration
 if [ -e "config.sh" ]; then
-	source /mnt/us/kindle-picture-frame/config.sh
+	source /mnt/us/kpf/config.sh
 fi
 
 # load utils
 if [ -e "utils.sh" ]; then
-	source /mnt/us/kindle-picture-frame/utils.sh
+	source /mnt/us/kpf/utils.sh
 else
 	echo "Could not find utils.sh in `pwd`"
 	exit
@@ -20,7 +20,7 @@ fi
 logger "Disabling online screensaver auto-update"
 
 #stop onlinescreensaver || true      
-PID=`ps xa | grep "/bin/sh /mnt/us/kindle-picture-frame/scheduler.sh" | awk '{ print $1 }'`
+PID=`ps xa | grep "/bin/sh /mnt/us/kpf/scheduler.sh" | awk '{ print $1 }'`
 logger "killing scheduler process: $PID"
 kill $PID || true
 
